@@ -1,7 +1,7 @@
-export const products = [
+const rawProducts = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
+    image: "./assets/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
     name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
     rating: {
       stars: 4.5,
@@ -462,3 +462,11 @@ export const products = [
     keywords: ["kitchen", "kitchen towels", "tissues"]
   }
 ];
+
+export const products = rawProducts.map((product) => {
+  const imageFileName = product.image.split('/').pop();
+  return {
+    ...product,
+    image: new URL(`../images/products/${imageFileName}`, import.meta.url).href
+  };
+});

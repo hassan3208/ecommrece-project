@@ -1,4 +1,3 @@
-
 import athleticCottonSocksImage from './assets/products/athletic-cotton-socks-6-pairs.jpg';
 import intermediateCompositeBasketballImage from './assets/products/intermediate-composite-basketball.jpg';
 import adultsPlainCottonTshirt2PackTealImage from './assets/products/adults-plain-cotton-tshirt-2-pack-teal.jpg';
@@ -6,6 +5,7 @@ import rating45Image from './assets/ratings/rating-45.png';
 import rating40Image from './assets/ratings/rating-40.png';
 import checkmarkIcon from './assets/icons/checkmark.png';
 import { Header } from './components/Header';
+import { products } from '../starting-code/data/products';
 
 export function HomePage() {
   return (
@@ -13,7 +13,64 @@ export function HomePage() {
       <Header />
 
       <div className="home-page">
+
+       
       <div className="products-grid">
+
+        {products.map((product) => (
+        <div key={product.id} className="product-container">
+          
+          <div className="product-image-container">
+            <img
+              className="product-image"
+              src={product.image}
+              alt={product.name}
+            />
+          </div>
+
+          <div className="product-name limit-text-to-2-lines">
+            {product.name}
+          </div>
+
+          <div className="product-rating-container">
+            <img
+              className="product-rating-stars"
+              src={product.rating.stars === 4.5 ? rating45Image : rating40Image}
+              alt="rating"
+            />
+            <div className="product-rating-count link-primary">
+              {product.rating.count}
+            </div>
+          </div>
+
+          <div className="product-price">
+            ${product.priceCents / 100}
+          </div>
+
+          <div className="product-quantity-container">
+            <select defaultValue="1">
+              {[...Array(10)].map((_, index) => (
+                <option key={index + 1} value={index + 1}>
+                  {index + 1}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="product-spacer"></div>
+
+          <button
+            className="add-to-cart-button button-primary"
+            onClick={() => product.id}
+          >
+            Add to Cart
+          </button>
+
+        </div>
+      ))}
+
+
+        
         <div className="product-container">
           <div className="product-image-container">
             <img className="product-image"
@@ -160,6 +217,7 @@ export function HomePage() {
             Add to Cart
           </button>
         </div>
+
       </div>
       </div>
     </div>
