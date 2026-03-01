@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 export function HomePage() {
 
   const [products, setProducts] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
       axios.get('http://localhost:3000/api/products')
@@ -22,12 +23,22 @@ export function HomePage() {
         .catch((error) => {
           console.error('Error fetching products:', error);
         });
+
+
+      axios.get('http://localhost:3000/api/cart-items')
+        .then((response) => {
+          console.log('Fetched cart items:', response.data);
+          setCartItems(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching cart items:', error);
+        });
   }, []);
 
 
   return (
     <div>
-      <Header />
+      <Header cartItems={cartItems}/>
 
       <div className="home-page">
 
