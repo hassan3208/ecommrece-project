@@ -5,9 +5,26 @@ import rating45Image from './assets/ratings/rating-45.png';
 import rating40Image from './assets/ratings/rating-40.png';
 import checkmarkIcon from './assets/icons/checkmark.png';
 import { Header } from './components/Header';
-import { products } from '../starting-code/data/products';
+// import { products } from '../starting-code/data/products';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export function HomePage() {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+      axios.get('http://localhost:3000/api/products')
+        .then((response) => {
+          console.log('Fetched products:', response.data);
+          setProducts(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching products:', error);
+        });
+  }, []);
+
+
   return (
     <div>
       <Header />
@@ -61,7 +78,7 @@ export function HomePage() {
 
           <button
             className="add-to-cart-button button-primary"
-            onClick={() => product.id}
+            onClick={() => console.log('Adding to cart:', product.id)}
           >
             Add to Cart
           </button>
